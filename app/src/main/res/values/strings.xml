@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GettingThingsDone</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_tab_">Tab_Activity</string>
+</resources>

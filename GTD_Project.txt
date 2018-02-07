@@ -1,0 +1,20 @@
+Getting Things Done application
+
+Next Action:
+	Write DB Control object
+
+MVP:
+	Store Lists of Next Actions, projects, and Reference information
+	3 tabs, 
+	3 listview, 
+	2 layouts for ( one for next actions and one for reference ), 
+	1 object to store the info to make a list view
+	1 DB Table to store the objects
+	View Lists
+	Create items to add to lists
+	
+WishList:
+	Attach files references
+	Attach References to projects
+	Attach References to Next Actions
+	Attach Next Actions to projects

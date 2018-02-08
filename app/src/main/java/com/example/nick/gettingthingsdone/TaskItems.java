@@ -29,7 +29,7 @@ public class TaskItems{
     protected boolean saveSelf(){
 
         //setup db here and save current state of jsonobject
-        //TODO: Write DB Control object
+        //TODO: Write DB Control object.
 
         return true;
     }

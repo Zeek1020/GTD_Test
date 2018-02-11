@@ -1,7 +1,8 @@
 Getting Things Done application
 
 Next Action:
-	Write DB Control object
+	Continue tutorial
+	http://www.truiton.com/2015/06/android-tabs-example-fragments-viewpager/
 
 MVP:
 	Store Lists of Next Actions, projects, and Reference information

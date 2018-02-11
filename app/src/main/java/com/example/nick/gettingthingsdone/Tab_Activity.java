@@ -1,5 +1,6 @@
 package com.example.nick.gettingthingsdone;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,7 +14,9 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Tab_Activity extends AppCompatActivity {
 
@@ -30,23 +33,6 @@ public class Tab_Activity extends AppCompatActivity {
         @Override
         public void onTabChanged( String name ){
             Toast.makeText( Tab_Activity.this, name, Toast.LENGTH_SHORT );
-
-            if ( name.equals( "Next Action" ) ){
-                ArrayList<String> al = new ArrayList<>();
-                al.add( "Do Something!" );
-                al.add( "File Taxes" );
-                al.add( "What the hell is all this then?");
-                //TODO: Check Notepad++
-                ArrayAdapter<String> ad = new ArrayAdapter<String>( Tab_Activity.this, android.R.layout.simple_list_item_1, al);
-                try {
-                    ListView lv = (ListView) findViewById(R.id.LV_NEXT_ACTION);
-                    lv.setAdapter(ad);
-                } catch (Exception e ){
-                    Toast.makeText( Tab_Activity.this, e.toString(), Toast.LENGTH_LONG ).show();
-                    Log.d("Err", "ListView didn't work");
-                }
-            }
-
         }
     };
 
@@ -60,13 +46,40 @@ public class Tab_Activity extends AppCompatActivity {
         host = findViewById( R.id.TH_Inboxes );
 
         host.setup();
-
         addTab(host, "Next Action", R.id.Next_Action);
         addTab(host, "Projects", R.id.Projects);
         addTab(host, "Reference", R.id.Reference);
 
         host.setOnTabChangedListener( tabListener );
+        String tag = "DEBUG";
 
+        ListView v = null;
+
+        View tab_view = host.getCurrentTabView();
+
+        //TODO: http://www.truiton.com/2015/06/android-tabs-example-fragments-viewpager/ fragment pager?
+
+        try{
+            v = ( ListView ) host.getCurrentTabView().findViewById( R.id.LV_NEXT_ACTION );
+        } catch ( Exception e ){
+            Log.d( tag, e.toString() );
+            Log.d( tag, host.getCurrentTabView().toString() );
+        }
+
+        ArrayList<String> al = new ArrayList<>();
+        al.add( "Do Something!" );
+        al.add( "File Taxes" );
+        al.add( "What the hell is all this then?");
+        ArrayAdapter<String> ad = new ArrayAdapter<String>( Tab_Activity.this, android.R.layout.simple_list_item_1, al);
+        try {
+            v.setAdapter(ad);
+        } catch ( Exception e ){
+            String s = e.getMessage();
+            if ( s == null ){
+                s = e.toString();
+            }
+            Log.d( tag, s);
+        }
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

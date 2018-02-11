@@ -1,6 +1,7 @@
 package com.example.nick.gettingthingsdone;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -34,12 +35,27 @@ public class TodoList extends AppCompatActivity {
 
         Log.d( tag, "Do we get this far?");
 
-        String[] s = new String[]{"this", "is", "a", "test"};
+        String[] s = new String[]{"this", "is", "a", "Database", "test"};
         ArrayList<String> als = new ArrayList<>();
         ArrayAdapter<String> aaTest = null;
 
-        for( String x : s ){
-            als.add( x );
+        ActivityDatabase ad = new ActivityDatabase( this);
+        Cursor cursor;
+
+        cursor = ad.getRecord();
+
+        if ( cursor.getCount() == 0 ){
+            for ( String x : s ){
+                ad.insert( "", x );
+            }
+            cursor = ad.getRecord();
+        }
+
+        if( cursor.moveToFirst() ){
+            als.add( cursor.getString( 2 ) );
+            while( cursor.moveToNext() ){
+                als.add( cursor.getString( 2 ) );
+            }
         }
 
         lvTodo = findViewById(R.id.TodoList);

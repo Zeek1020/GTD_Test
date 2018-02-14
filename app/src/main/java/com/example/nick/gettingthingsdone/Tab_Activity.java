@@ -35,7 +35,7 @@ public class Tab_Activity extends AppCompatActivity {
 
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
-
+            Log.d( "TAB", tab.toString() );
         }
     };
 
@@ -49,12 +49,13 @@ public class Tab_Activity extends AppCompatActivity {
         final PagerAdapter pagerAdapter = new PagerAdapter( getSupportFragmentManager(), tLayout.getTabCount());
         vPager.setAdapter( pagerAdapter );
 
+        //TODO: Crashes on load. Bug trap and fix
+
         tLayout.addTab( tLayout.newTab().setText("Tab1") );
         tLayout.addTab( tLayout.newTab().setText("Tab2") );
         tLayout.addTab( tLayout.newTab().setText("Tab3") );
         tLayout.setTabGravity( TabLayout.GRAVITY_FILL );
-        //TODO: Why is this deprecated?  What do I use instead?
-        tLayout.setOnTabSelectedListener( changeTab );
+        tLayout.addOnTabSelectedListener( changeTab );
 
         //TODO: http://www.truiton.com/2015/06/android-tabs-example-fragments-viewpager/ fragment pager?
 

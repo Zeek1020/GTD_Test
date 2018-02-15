@@ -22,6 +22,8 @@ import java.util.List;
 
 public class Tab_Activity extends AppCompatActivity {
 
+    private final String tag = "FUCKBOI";
+
     TabLayout.OnTabSelectedListener changeTab = new TabLayout.OnTabSelectedListener(){
         @Override
         public void onTabUnselected(TabLayout.Tab tab) {
@@ -41,22 +43,39 @@ public class Tab_Activity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d( tag, "I AM SO GOD DAMNED PISSED OFF RIGHT NOW! FUCK THIS SHIT");
         setContentView(R.layout.activity_tab_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         final ViewPager vPager = ( ViewPager ) findViewById( R.id.pager );
         TabLayout tLayout = ( TabLayout ) findViewById( R.id.tab_layout );
-        final PagerAdapter pagerAdapter = new PagerAdapter( getSupportFragmentManager(), tLayout.getTabCount());
-        vPager.setAdapter( pagerAdapter );
 
+        try {
+            final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tLayout.getTabCount());
+            vPager.setAdapter(pagerAdapter);
+        } catch ( Exception e ) {
+            Log.d( tag, "pagerAdapter: " + e.toString());
+        }
         //TODO: Crashes on load. Bug trap and fix
 
-        tLayout.addTab( tLayout.newTab().setText("Tab1") );
-        tLayout.addTab( tLayout.newTab().setText("Tab2") );
-        tLayout.addTab( tLayout.newTab().setText("Tab3") );
-        tLayout.setTabGravity( TabLayout.GRAVITY_FILL );
-        tLayout.addOnTabSelectedListener( changeTab );
+        try {
+            tLayout.addTab(tLayout.newTab().setText("Tab1"));
+            tLayout.addTab(tLayout.newTab().setText("Tab2"));
+            tLayout.addTab(tLayout.newTab().setText("Tab3"));
+        } catch ( Exception e ){
+            Log.d(tag, "AddTab: " + e.toString() );
+        }
 
+        try {
+            tLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        } catch ( Exception e ){
+            Log.d("DEBUG", "Gravity: " + e.toString() );
+        }
+        try {
+            tLayout.addOnTabSelectedListener(changeTab);
+        } catch ( Exception e ){
+            Log.d( tag, "addListener: " + e.toString());
+        }
         //TODO: http://www.truiton.com/2015/06/android-tabs-example-fragments-viewpager/ fragment pager?
 
 

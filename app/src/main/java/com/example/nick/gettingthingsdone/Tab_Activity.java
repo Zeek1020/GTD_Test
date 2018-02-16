@@ -22,7 +22,7 @@ import java.util.List;
 
 public class Tab_Activity extends AppCompatActivity {
 
-    private final String tag = "FUCKBOI";
+    private final String tag = "MyTAG";
 
     TabLayout.OnTabSelectedListener changeTab = new TabLayout.OnTabSelectedListener(){
         @Override
@@ -43,21 +43,20 @@ public class Tab_Activity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d( tag, "I AM SO GOD DAMNED PISSED OFF RIGHT NOW! FUCK THIS SHIT");
         setContentView(R.layout.activity_tab_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Log.d( tag, "Did we make it here? 1 ");
         final ViewPager vPager = ( ViewPager ) findViewById( R.id.pager );
+        Log.d( tag, "Did we make it here? 2 ");
         TabLayout tLayout = ( TabLayout ) findViewById( R.id.tab_layout );
+        Log.d( tag, "We definitely didn't make it here" );
+        final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tLayout.getTabCount());
 
-        try {
-            final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tLayout.getTabCount());
-            vPager.setAdapter(pagerAdapter);
-        } catch ( Exception e ) {
-            Log.d( tag, "pagerAdapter: " + e.toString());
-        }
-        //TODO: Crashes on load. Bug trap and fix
+        //TODO: Ok, vPager.setAdapter seems to be the issue. I don't know if pagerAdapter is null or not
+        //vPager.setAdapter( pagerAdapter );
 
+        /*
         try {
             tLayout.addTab(tLayout.newTab().setText("Tab1"));
             tLayout.addTab(tLayout.newTab().setText("Tab2"));
@@ -78,15 +77,19 @@ public class Tab_Activity extends AppCompatActivity {
         }
         //TODO: http://www.truiton.com/2015/06/android-tabs-example-fragments-viewpager/ fragment pager?
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        try {
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
+        } catch ( Exception e ){
+            Log.d( tag, e.toString() );
+        }
+        */
     }
 
 }

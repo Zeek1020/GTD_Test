@@ -1,10 +1,12 @@
 package com.example.nick.gettingthingsdone;
 
+import android.net.Uri;
 import android.os.Parcelable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
     private int NumTabs;
+    private String tag = "MyTAG";
 
     @Override
     public int getCount() {
@@ -66,15 +69,17 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         super.restoreState(state, loader);
     }
 
-    @Override
     public Fragment getItem(int position) {
 
         switch ( position ){
             case 0:
-                Tab1_Fragment tab1 = new Tab1_Fragment();
-                return tab1;
+                return new Tab1_Fragment();
+            case 1:
+                return new Tab2_List_Fragment();
+            case 2:
+                return new Tab1_Fragment();
             default:
-                return null;
+                return new Tab1_Fragment();
         }
     }
 }

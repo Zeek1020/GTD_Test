@@ -1,6 +1,8 @@
 package com.example.nick.gettingthingsdone;
 
 import android.database.Cursor;
+import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,11 +18,16 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nick.gettingthingsdone.dummy.DummyContent;
+
+import java.net.URI;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tab_Activity extends AppCompatActivity {
+public class Tab_Activity extends AppCompatActivity
+                          implements Tab1_Fragment.OnFragmentInteractionListener,
+                                     Tab2_List_Fragment.OnListFragmentInteractionListener {
 
     private final String tag = "MyTAG";
 
@@ -41,55 +48,47 @@ public class Tab_Activity extends AppCompatActivity {
         }
     };
 
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        Log.d( tag, "OFIL!");
+    }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+        Log.d( tag, "List Item" );
+    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Log.d( tag, "Did we make it here? 1 ");
         final ViewPager vPager = ( ViewPager ) findViewById( R.id.pager );
-        Log.d( tag, "Did we make it here? 2 ");
         TabLayout tLayout = ( TabLayout ) findViewById( R.id.tab_layout );
-        Log.d( tag, "We definitely didn't make it here" );
         final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tLayout.getTabCount());
 
-        //TODO: Ok, vPager.setAdapter seems to be the issue. I don't know if pagerAdapter is null or not
-        //vPager.setAdapter( pagerAdapter );
+        vPager.setAdapter( pagerAdapter );
 
-        /*
-        try {
-            tLayout.addTab(tLayout.newTab().setText("Tab1"));
-            tLayout.addTab(tLayout.newTab().setText("Tab2"));
-            tLayout.addTab(tLayout.newTab().setText("Tab3"));
-        } catch ( Exception e ){
-            Log.d(tag, "AddTab: " + e.toString() );
-        }
+        tLayout.removeAllTabs();
 
-        try {
-            tLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        } catch ( Exception e ){
-            Log.d("DEBUG", "Gravity: " + e.toString() );
-        }
-        try {
-            tLayout.addOnTabSelectedListener(changeTab);
-        } catch ( Exception e ){
-            Log.d( tag, "addListener: " + e.toString());
-        }
+        tLayout.addTab(tLayout.newTab().setText("Tab1"));
+        tLayout.addTab(tLayout.newTab().setText("Tab2"));
+        tLayout.addTab(tLayout.newTab().setText("Tab3"));
+
+        tLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
+        tLayout.addOnTabSelectedListener(changeTab);
+
         //TODO: http://www.truiton.com/2015/06/android-tabs-example-fragments-viewpager/ fragment pager?
 
-        try {
-            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            });
-        } catch ( Exception e ){
-            Log.d( tag, e.toString() );
-        }
-        */
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
     }
 
 }
